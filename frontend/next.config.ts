@@ -1,4 +1,4 @@
-import type { NextConfig } from "@/app/frontend/node_modules/next";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
