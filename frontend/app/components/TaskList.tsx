@@ -29,6 +29,9 @@ export default function TaskList({
 }: TaskListProps) {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   useEffect(() => {
     setTasks(initialTasks);
   }, [initialTasks]);
@@ -68,7 +71,7 @@ export default function TaskList({
       return;
     }
     try {
-      const res = await fetch(`http://localhost:8000/api/todos/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/todos/${id}`, {
         method: "PUT",
         body: JSON.stringify({
           field,

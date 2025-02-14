@@ -10,6 +10,9 @@ export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [token, setToken] = useState<string | null>(null);
 
+  const API_BASE_URL =
+    process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
     setToken(savedToken);
@@ -31,7 +34,7 @@ export default function Home() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:8000/api/todos", {
+      const res = await fetch(`${API_BASE_URL}/api/todos`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -60,7 +63,7 @@ export default function Home() {
       time: time,
     };
     console.log(newTask);
-    const res = await fetch("http://localhost:8000/api/todos", {
+    const res = await fetch(`${API_BASE_URL}/api/todos`, {
       method: "POST",
       body: JSON.stringify(newTask),
       headers: {
@@ -88,7 +91,7 @@ export default function Home() {
     if (!confirmDelete) return; // Prevent accidental deletion
 
     try {
-      const res = await fetch(`http://localhost:8000/api/todos/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/todos/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
